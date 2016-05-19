@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -28,9 +28,6 @@ import com.qiniu.qiniulab.R;
 import com.qiniu.qiniulab.config.QiniuLabConfig;
 import com.qiniu.qiniulab.utils.DomainUtils;
 import com.qiniu.qiniulab.utils.Tools;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +38,11 @@ import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CaptureImageActivity extends ActionBarActivity {
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+public class CaptureImageActivity extends AppCompatActivity {
     private CaptureImageActivity context;
     private final int CAPTURE_IMAGE_CODE = 8090;
     private LinearLayout uploadStatusLayout;
@@ -159,11 +160,7 @@ public class CaptureImageActivity extends ActionBarActivity {
 
                 } finally {
                     if (resp != null) {
-                        try {
                             resp.body().close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                     }
                 }
 

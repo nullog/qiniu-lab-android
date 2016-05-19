@@ -4,7 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -23,9 +23,9 @@ import com.qiniu.android.utils.AsyncRun;
 import com.qiniu.qiniulab.R;
 import com.qiniu.qiniulab.config.QiniuLabConfig;
 import com.qiniu.qiniulab.utils.Tools;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +33,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 
-public class SimpleUploadEnableCrc32CheckActivity extends ActionBarActivity {
+public class SimpleUploadEnableCrc32CheckActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 8090;
     private SimpleUploadEnableCrc32CheckActivity context;
     private EditText uploadFileKeyEditText;
@@ -162,11 +162,7 @@ public class SimpleUploadEnableCrc32CheckActivity extends ActionBarActivity {
                     writeLog("Exception:" + e.getMessage());
                 } finally {
                     if (resp != null) {
-                        try {
                             resp.body().close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                     }
                 }
             }

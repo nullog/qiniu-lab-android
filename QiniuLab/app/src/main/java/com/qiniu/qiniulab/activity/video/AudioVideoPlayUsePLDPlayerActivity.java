@@ -3,7 +3,7 @@ package com.qiniu.qiniulab.activity.video;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -16,7 +16,7 @@ import com.qiniu.qiniulab.utils.Tools;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 
-public class AudioVideoPlayUsePLDPlayerActivity extends ActionBarActivity {
+public class AudioVideoPlayUsePLDPlayerActivity extends AppCompatActivity {
     private VideoView videoPlayView;
     private MediaController videoPlayController;
     private TextView videoPlayLogTextView;

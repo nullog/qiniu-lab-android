@@ -2,7 +2,7 @@ package com.qiniu.qiniulab.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListAdapter;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class QiniuLabMainActivity extends ActionBarActivity {
+public class QiniuLabMainActivity extends AppCompatActivity {
 
     private ExpandableListView exampleListView;
     private List<String> exampleGroupTitleList;

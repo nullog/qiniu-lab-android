@@ -4,7 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,11 +23,10 @@ import com.qiniu.android.utils.AsyncRun;
 import com.qiniu.qiniulab.R;
 import com.qiniu.qiniulab.config.QiniuLabConfig;
 import com.qiniu.qiniulab.utils.Tools;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +34,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 
-public class SimpleUploadUseEndUserActivity extends ActionBarActivity {
+public class SimpleUploadUseEndUserActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 8090;
     private SimpleUploadUseEndUserActivity context;
     private EditText uploadFileKeyEditText;
@@ -132,10 +131,10 @@ public class SimpleUploadUseEndUserActivity extends ActionBarActivity {
             @Override
             public void run() {
                 final OkHttpClient httpClient = new OkHttpClient();
-                RequestBody requestBody = new FormEncodingBuilder().add("endUser", getEndUser()).build();
+                //RequestBody requestBody = new FormEncodingBuilder().add("endUser", getEndUser()).build();
                 Request req = new Request.Builder().url(QiniuLabConfig.makeUrl(
                         QiniuLabConfig.REMOTE_SERVICE_SERVER,
-                        QiniuLabConfig.SIMPLE_UPLOAD_USE_ENDUSER_PATH)).method("GET", requestBody).build();
+                        QiniuLabConfig.SIMPLE_UPLOAD_USE_ENDUSER_PATH)).method("GET", null).build();
                 Response resp = null;
                 try {
                     resp = httpClient.newCall(req).execute();
@@ -167,11 +166,7 @@ public class SimpleUploadUseEndUserActivity extends ActionBarActivity {
                     writeLog("Exception:" + e.getMessage());
                 } finally {
                     if (resp != null) {
-                        try {
                             resp.body().close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                     }
                 }
             }

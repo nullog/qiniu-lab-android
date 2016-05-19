@@ -3,9 +3,8 @@ package com.qiniu.qiniulab.activity.image;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -15,15 +14,8 @@ import com.qiniu.android.utils.AsyncRun;
 import com.qiniu.qiniulab.R;
 import com.qiniu.qiniulab.config.QiniuLabConfig;
 import com.qiniu.qiniulab.utils.DomainUtils;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
-import org.apache.http.Header;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -32,7 +24,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SimpleImageViewActivity extends ActionBarActivity {
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class SimpleImageViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,11 +98,7 @@ public class SimpleImageViewActivity extends ActionBarActivity {
 
                             } finally {
                                 if (response != null) {
-                                    try {
-                                        response.body().close();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
+                                    response.body().close();
                                 }
                             }
                         }
@@ -133,10 +126,10 @@ public class SimpleImageViewActivity extends ActionBarActivity {
         this.getWindowManager().getDefaultDisplay().getMetrics(dm);
 
 
-        RequestBody requestBody = new FormEncodingBuilder().add("device_width", String.format("%d", dm.widthPixels)).build();
+        //RequestBody requestBody = new FormEncodingBuilder().add("device_width", String.format("%d", dm.widthPixels)).build();
         Request req = new Request.Builder().url(QiniuLabConfig.makeUrl(
                 QiniuLabConfig.REMOTE_SERVICE_SERVER,
-                QiniuLabConfig.PUBLIC_IMAGE_VIEW_LIST_PATH)).method("GET", requestBody).build();
+                QiniuLabConfig.PUBLIC_IMAGE_VIEW_LIST_PATH)).method("GET", null).build();
         Response resp=null;
         try {
             resp = httpClient.newCall(req).execute();
@@ -153,11 +146,7 @@ public class SimpleImageViewActivity extends ActionBarActivity {
 
         } finally {
             if (resp != null) {
-                try {
-                    resp.body().close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                resp.body().close();
             }
         }
         return imageUrls;

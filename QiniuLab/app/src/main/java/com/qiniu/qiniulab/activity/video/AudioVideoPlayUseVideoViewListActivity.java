@@ -3,7 +3,7 @@ package com.qiniu.qiniulab.activity.video;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,9 +17,9 @@ import android.widget.Toast;
 import com.qiniu.android.utils.AsyncRun;
 import com.qiniu.qiniulab.R;
 import com.qiniu.qiniulab.config.QiniuLabConfig;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AudioVideoPlayUseVideoViewListActivity extends ActionBarActivity {
+public class AudioVideoPlayUseVideoViewListActivity extends AppCompatActivity {
     private Context context;
     private ListView playlistView;
 
@@ -117,11 +117,7 @@ public class AudioVideoPlayUseVideoViewListActivity extends ActionBarActivity {
                     Toast.LENGTH_LONG).show();
         } finally {
             if (resp != null) {
-                try {
                     resp.body().close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         }
     }
