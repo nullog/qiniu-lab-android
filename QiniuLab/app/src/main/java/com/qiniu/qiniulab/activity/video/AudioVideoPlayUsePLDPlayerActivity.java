@@ -9,15 +9,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.pili.pldroid.player.widget.VideoView;
+import com.pili.pldroid.player.PLMediaPlayer;
+import com.pili.pldroid.player.widget.PLVideoView;
 import com.qiniu.qiniulab.R;
 import com.qiniu.qiniulab.activity.video.widget.MediaController;
 import com.qiniu.qiniulab.utils.Tools;
 
-import tv.danmaku.ijk.media.player.IMediaPlayer;
-
 public class AudioVideoPlayUsePLDPlayerActivity extends AppCompatActivity {
-    private VideoView videoPlayView;
+    private PLVideoView videoPlayView;
     private MediaController videoPlayController;
     private TextView videoPlayLogTextView;
 
@@ -44,7 +43,7 @@ public class AudioVideoPlayUsePLDPlayerActivity extends AppCompatActivity {
 
     private void initVideoPlay() {
         this.videoPlayController = new MediaController(this);
-        this.videoPlayView = (VideoView) this
+        this.videoPlayView = (PLVideoView) this
                 .findViewById(R.id.simple_video_play_pldplayer);
         this.videoPlayLogTextView = (TextView) this
                 .findViewById(R.id.simple_video_play_log_textview);
@@ -59,31 +58,31 @@ public class AudioVideoPlayUsePLDPlayerActivity extends AppCompatActivity {
         final long startTime = System.currentTimeMillis();
 
         //common settings
-        videoPlayView.setOnErrorListener(new IMediaPlayer.OnErrorListener() {
-
+        videoPlayView.setOnErrorListener(new PLMediaPlayer.OnErrorListener() {
             @Override
-            public boolean onError(IMediaPlayer mp, int what, int extra) {
-                videoPlayLogTextView.append("Play " + mp.getDataSource() + "Error, Pos" + mp.getCurrentPosition() + "\r\n");
+            public boolean onError(PLMediaPlayer plMediaPlayer, int i) {
+                videoPlayLogTextView.append("Play " + plMediaPlayer.getDataSource() + "Error, Pos" + plMediaPlayer.getCurrentPosition() + "\r\n");
                 return false;
             }
         });
 
-        videoPlayView.setOnInfoListener(new IMediaPlayer.OnInfoListener() {
 
+        videoPlayView.setOnInfoListener(new PLMediaPlayer.OnInfoListener() {
             @Override
-            public boolean onInfo(IMediaPlayer mp, int what, int extra) {
-                videoPlayLogTextView.append("Play " + mp.getDataSource() + ", Pos:" + mp.getCurrentPosition() + "\r\n");
+            public boolean onInfo(PLMediaPlayer plMediaPlayer, int i, int i1) {
+                videoPlayLogTextView.append("Play " + plMediaPlayer.getDataSource() + ", Pos:" + plMediaPlayer.getCurrentPosition() + "\r\n");
                 return false;
             }
         });
+
 
         if (!adsUrl.isEmpty()) {
             ///////////////// Play the ads first /////////////////////////
 
             videoPlayView.setVideoURI(Uri.parse(adsUrl));
-            videoPlayView.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
+            videoPlayView.setOnPreparedListener(new PLMediaPlayer.OnPreparedListener() {
                 @Override
-                public void onPrepared(IMediaPlayer mp) {
+                public void onPrepared(PLMediaPlayer mp) {
                     long duration = videoPlayView.getDuration();
                     long endTime = System.currentTimeMillis();
                     long loadTime = endTime - startTime;
@@ -98,15 +97,15 @@ public class AudioVideoPlayUsePLDPlayerActivity extends AppCompatActivity {
             //////////////////Play the video then ////////////////////////
 
             //video to play
-            videoPlayView.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
+            videoPlayView.setOnCompletionListener(new PLMediaPlayer.OnCompletionListener() {
                 @Override
-                public void onCompletion(IMediaPlayer mp) {
+                public void onCompletion(PLMediaPlayer mp) {
                     videoPlayView.setVideoURI(Uri.parse(videoUrl));
                     final long startTime2 = System.currentTimeMillis();
-                    videoPlayView.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
+                    videoPlayView.setOnPreparedListener(new PLMediaPlayer.OnPreparedListener() {
 
                         @Override
-                        public void onPrepared(IMediaPlayer mp) {
+                        public void onPrepared(PLMediaPlayer mp) {
                             long duration = videoPlayView.getDuration();
                             long endTime = System.currentTimeMillis();
                             long loadTime = endTime - startTime2;
@@ -115,10 +114,10 @@ public class AudioVideoPlayUsePLDPlayerActivity extends AppCompatActivity {
                             mp.start();
                         }
                     });
-                    videoPlayView.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
+                    videoPlayView.setOnCompletionListener(new PLMediaPlayer.OnCompletionListener() {
 
                         @Override
-                        public void onCompletion(IMediaPlayer iMediaPlayer) {
+                        public void onCompletion(PLMediaPlayer iMediaPlayer) {
                             videoPlayLogTextView.append("All Play Ends\r\n");
                         }
                     });
@@ -128,10 +127,10 @@ public class AudioVideoPlayUsePLDPlayerActivity extends AppCompatActivity {
             //video to play
             videoPlayView.setVideoURI(Uri.parse(videoUrl));
             final long startTime2 = System.currentTimeMillis();
-            videoPlayView.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
+            videoPlayView.setOnPreparedListener(new PLMediaPlayer.OnPreparedListener() {
 
                 @Override
-                public void onPrepared(IMediaPlayer mp) {
+                public void onPrepared(PLMediaPlayer mp) {
                     long duration = videoPlayView.getDuration();
                     long endTime = System.currentTimeMillis();
                     long loadTime = endTime - startTime2;
@@ -140,10 +139,10 @@ public class AudioVideoPlayUsePLDPlayerActivity extends AppCompatActivity {
                     mp.start();
                 }
             });
-            videoPlayView.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
+            videoPlayView.setOnCompletionListener(new PLMediaPlayer.OnCompletionListener() {
 
                 @Override
-                public void onCompletion(IMediaPlayer iMediaPlayer) {
+                public void onCompletion(PLMediaPlayer iMediaPlayer) {
                     videoPlayLogTextView.append("All Play Ends\r\n");
                 }
             });
